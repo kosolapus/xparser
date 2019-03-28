@@ -67,7 +67,7 @@ class ParseUrl implements ShouldQueue
             }
 
           }
-          echo $result;
-          UrlParseController::saveResult($result, $this->link_id);
+          echo json_encode($result);
+          UrlParseController::saveResult(json_encode($result), $this->link_id);
     }
 }
