@@ -24,7 +24,7 @@ class UrlParseController extends Controller
     }
 
     public static function saveResult($result,$link_id){
-      $json = json_encode($reult);
+      $json = $result;
       $url = UrlParse::find($link_id);
       $url->json_result = $json;
       $url->save;
