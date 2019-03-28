@@ -40,7 +40,7 @@ class ParseUrl implements ShouldQueue
         $xpath = XpathParseController::get($link->task_parses_id);
 
         //html is not valid xml. we know it. we doesn't need to repeat it. don't worry, dear php
-        error_reporting(0);
+        error_reporting(1);
         $xpath_array = $xpath->toArray();
 
           $url_array = [$link];
@@ -67,7 +67,7 @@ class ParseUrl implements ShouldQueue
             }
 
           }
-
-          UrlParseController::saveResult($result, $link->id);
+          echo $result;
+          UrlParseController::saveResult($result, $this->link_id);
     }
 }
