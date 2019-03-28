@@ -15,4 +15,4 @@ Route::get('/', function () {
     return view('index');
 });
 
-Route::any('/parse', "XParser@parse")->name("parser");
+Route::any('/parse', "XParser@showData")->name("parser");

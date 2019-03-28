@@ -2,42 +2,44 @@
 
 namespace App\Http\Controllers;
 
+use Storage;
+
 use Illuminate\Http\Request;
+
+use App\Http\Controllers\TaskParseController;
+use App\Http\Controllers\XpathParseController;
+
+use App\Jobs\ParseLinksFile;
 
 class XParser extends Controller
 {
     //
     public function parse(Request $request){
-      error_reporting(0);
-      $xpath_array = ["value"=>$request->input("xpath")];
 
-        $url_array = [$request->input("link")];
+    }
 
-        $result = [];
+    public function showData(Request $request){
 
-        foreach($url_array as $url){
-          $doc = new \DOMDocument();
-          $doc->loadHTML(file_get_contents($url));
-          $xpath = new \DOMXpath($doc);
-          foreach($xpath_array as $name=>$query){
-            $elements = $xpath->query($query);
+      /*
+      $validatedData = $request->validate([
+          'email' => 'required|email',
+          'xpath' => 'requred'
+      ]);
+      */
+      //Create new task
+      $task = TaskParseController::add($request->email);
+      //Save file with name like a "work_%task_id%"
+      $request->links->storeAs('links',"work_".$task->id);
+      //Parse XPath
+      foreach($request->xpath as $xpath_item){
+        //create new XPath
+        $xpath = XpathParseController::add($xpath_item["name"],$xpath_item["value"],$task->id);
+      }
+      //Add job to file parse
+      ParseLinksFile::dispatch("links/work_",$task->id);
 
-            //print $doc->saveHTML();
-
-            if (!is_null($elements)) {
-              foreach ($elements as $element) {
-                $nodes = $element->childNodes;
-                foreach ($nodes as $node) {
-                  $result[$name][] = $node->nodeValue;
-                }
-              }
-            }
-          }
-
-        }
-        foreach($result as $title=>$item){
-          print "<h2>".$title."</h2>";
-          print implode("<br>", $item);
-        }
+      //Delete file with links AFTER parsing
+      //DeleteLinksFile::dispatch("links/work_".$task->id);
+      dd($request->all());
     }
 }
