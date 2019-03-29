@@ -20,7 +20,7 @@ class XpathParseController extends Controller
     }
 
     public static function get($link_id){
-      $links = UrlParse::where("task_parses_id",$link_id)->get();
+      $links = XpathParse::where("work_id",$link_id)->get();
       return $links;
     }
 }

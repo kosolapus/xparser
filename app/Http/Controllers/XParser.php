@@ -10,6 +10,8 @@ use App\Http\Controllers\TaskParseController;
 use App\Http\Controllers\XpathParseController;
 
 use App\Jobs\ParseLinksFile;
+use App\Jobs\CreateResultFile;
+
 
 class XParser extends Controller
 {
@@ -38,8 +40,24 @@ class XParser extends Controller
       //Add job to file parse
       ParseLinksFile::dispatch("links/work_",$task->id);
 
+      CreateResultFile::dispatch($task->id);
+
+
       //Delete file with links AFTER parsing
       //DeleteLinksFile::dispatch("links/work_".$task->id);
-      dd($request->all());
+      //dd($request->all());
+    }
+
+    public function download(Request $request){
+      if (! $request->hasValidSignature()) {
+          abort(401);
+      }
+      $task_id = $request->task_id;
+      if(Storage::exists("/result/".$task_id.".json")){
+        return Storage::download("/result/".$task_id.".json");
+      }
+
+      return abort(404);
+
     }
 }

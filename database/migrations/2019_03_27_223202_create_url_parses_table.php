@@ -17,7 +17,7 @@ class CreateUrlParsesTable extends Migration
             $table->bigIncrements('id');
             $table->integer('task_parses_id');
             $table->text('url')->nullable();
-            $table->string('json_result')->nullable();
+            $table->longText('json_result')->nullable();
             $table->integer('is_parsed')->nullable();
             $table->timestamps();
         });
