@@ -16,3 +16,4 @@ Route::get('/', function () {
 });
 
 Route::any('/parse', "XParser@showData")->name("parser");
+Route::get('/task/{task_id}/download', "XParser@download")->name("download");

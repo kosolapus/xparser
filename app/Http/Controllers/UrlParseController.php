@@ -27,6 +27,6 @@ class UrlParseController extends Controller
       $json = $result;
       $url = UrlParse::find($link_id);
       $url->json_result = $json;
-      $url->save;
+      $url->save();
     }
 }

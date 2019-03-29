@@ -43,31 +43,30 @@ class ParseUrl implements ShouldQueue
         error_reporting(1);
         $xpath_array = $xpath->toArray();
 
-          $url_array = [$link];
 
+          $url =  trim(preg_replace('/\s\s+/', ' ', $link->url));
           $result = [];
 
-          foreach($url_array as $url){
             $doc = new \DOMDocument();
             $doc->loadHTML(file_get_contents($url));
+
             $xpath = new \DOMXpath($doc);
             foreach($xpath_array as $elem){
-              $elements = $xpath->query($elem->xpath_value);
+              $elements = $xpath->query($elem["xpath_value"]);
 
               //print $doc->saveHTML();
-
               if (!is_null($elements)) {
                 foreach ($elements as $element) {
                   $nodes = $element->childNodes;
                   foreach ($nodes as $node) {
-                    $result[$elem->xpath_name][] = $node->nodeValue;
+
+                    $result[$elem["xpath_name"]][] = $node->nodeValue;
+
                   }
                 }
               }
             }
 
-          }
-          echo json_encode($result);
           UrlParseController::saveResult(json_encode($result), $this->link_id);
     }
 }
