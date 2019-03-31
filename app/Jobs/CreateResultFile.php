@@ -12,6 +12,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 use App\Parser\UrlParse;
+use App\Jobs\EmailResult;
 
 class CreateResultFile implements ShouldQueue
 {
@@ -47,6 +48,7 @@ class CreateResultFile implements ShouldQueue
         $json = $json_obj->toJson(JSON_PRETTY_PRINT);
         Storage::disk('local')->put("/result/".$this->task_id.".json", $json);
         $link = Storage::path("/result/".$this->task_id.".json");
-        echo "<a href='".URL::signedRoute("download", ['task_id' => $this->task_id])."'>".Result."</a>";
+
+        EmailResult::dispatch("<a href='".URL::signedRoute("download", ['task_id' => $this->task_id])."'>".Result."</a>");
     }
 }

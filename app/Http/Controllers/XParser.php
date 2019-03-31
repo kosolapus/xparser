@@ -11,6 +11,7 @@ use App\Http\Controllers\XpathParseController;
 
 use App\Jobs\ParseLinksFile;
 use App\Jobs\CreateResultFile;
+use App\Jobs\EmailResult;
 
 
 class XParser extends Controller
@@ -41,6 +42,8 @@ class XParser extends Controller
       ParseLinksFile::dispatch("links/work_",$task->id);
 
       CreateResultFile::dispatch($task->id);
+
+    
 
 
       //Delete file with links AFTER parsing
