@@ -11,14 +11,16 @@ class ParseResult extends Mailable
 {
     use Queueable, SerializesModels;
 
+    private $link;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($link)
     {
         //
+        $this->link=$link;
     }
 
     /**
@@ -28,6 +30,9 @@ class ParseResult extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+
+        return $this->view('mail.parse_result') ->with([
+                        'link' => $this->link,
+                    ]);;
     }
 }
