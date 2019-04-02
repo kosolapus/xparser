@@ -14,16 +14,16 @@ class EmailResult implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    private $link;
+    private $task;
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($link)
+    public function __construct($task)
     {
         //
-        $this->link = $link;
+        $this->task = $task;
     }
 
     /**
@@ -33,7 +33,6 @@ class EmailResult implements ShouldQueue
      */
     public function handle()
     {
-        
-        Mail::to("kosolapus@gmail.com")->send(new ParseResult($this->link));
+        Mail::to("kosolapus@gmail.com")->send(new ParseResult($this->task));
     }
 }

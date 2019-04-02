@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width" />
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>Simple Transactional Email</title>
+    <title>Result job #{{$task->task_id}}</title>
     <style>
       /* -------------------------------------
           GLOBAL RESETS
@@ -294,7 +294,7 @@
     </style>
   </head>
   <body class="">
-    <span class="preheader">This is preheader text. Some clients will show this text as a preview.</span>
+    <span class="preheader">Your parsing finished! Download link in mail!</span>
     <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="body">
       <tr>
         <td>&nbsp;</td>
@@ -311,15 +311,15 @@
                     <tr>
                       <td>
                         <p>Hi there,</p>
-                        <p>Sometimes you just want to send a simple HTML email with a simple design and clear call to action. This is it.</p>
+                        <p>We have finished parsing your file. The result in JSON format you can download the link below.</p>
                         <table role="presentation" border="0" cellpadding="0" cellspacing="0" class="btn btn-primary">
                           <tbody>
                             <tr>
                               <td align="left">
                                 <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                                   <tbody>
-                                    <tr>
-                                      <td> {!! $link !!} </td>
+                                    <tr style="text-align:center">
+                                      <td><a href='{{ URL::signedRoute("download", ['task_id' => $task->id])}}'>Result</a> </td>
                                     </tr>
                                   </tbody>
                                 </table>
@@ -327,8 +327,8 @@
                             </tr>
                           </tbody>
                         </table>
-                        <p>This is a really simple email template. Its sole purpose is to get the recipient to click the button with no distractions.</p>
-                        <p>Good luck! Hope it works.</p>
+                        <p></p>
+                        <p>Good luck! </p>
                       </td>
                     </tr>
                   </table>
@@ -344,7 +344,7 @@
               <table role="presentation" border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">Company Inc, 3 Abbey Road, San Francisco CA 94102</span>
+                    <span class="apple-link">Xparser</span>
                     <br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
                   </td>
                 </tr>
