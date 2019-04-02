@@ -33,6 +33,6 @@ class ParseResult extends Mailable
 
         return $this->view('mail.parse_result') ->with([
                         'link' => $this->link,
-                    ]);;
+                    ]);
     }
 }

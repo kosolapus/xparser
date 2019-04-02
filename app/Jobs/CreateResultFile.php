@@ -49,6 +49,6 @@ class CreateResultFile implements ShouldQueue
         Storage::disk('local')->put("/result/".$this->task_id.".json", $json);
         $link = Storage::path("/result/".$this->task_id.".json");
 
-        EmailResult::dispatch("<a href='".URL::signedRoute("download", ['task_id' => $this->task_id])."'>".Result."</a>");
+        EmailResult::dispatch("<a href='".URL::signedRoute("download", ['task_id' => $this->task_id])."'>Result</a>");
     }
 }

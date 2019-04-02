@@ -33,7 +33,7 @@ class EmailResult implements ShouldQueue
      */
     public function handle()
     {
-        //
+        
         Mail::to("kosolapus@gmail.com")->send(new ParseResult($this->link));
     }
 }
