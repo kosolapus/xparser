@@ -11,16 +11,16 @@ class ParseResult extends Mailable
 {
     use Queueable, SerializesModels;
 
-    private $link;
+    private $task;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($link)
+    public function __construct($task)
     {
         //
-        $this->link=$link;
+        $this->task=$task;
     }
 
     /**
@@ -31,8 +31,8 @@ class ParseResult extends Mailable
     public function build()
     {
 
-        return $this->view('mail.parse_result') ->with([
-                        'link' => $this->link,
-                    ]);;
+        return $this->subject("Result #".$this->task->id)->view('mail.parse_result') ->with([
+                        'task' => $this->task,
+                    ]);
     }
 }
