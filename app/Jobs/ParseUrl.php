@@ -11,6 +11,8 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use  App\Http\Controllers\UrlParseController;
 use  App\Http\Controllers\XpathParseController;
 
+use App\Events\NewBookAcceptToParseNotification;
+
 class ParseUrl implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
@@ -51,22 +53,29 @@ class ParseUrl implements ShouldQueue
             $doc->loadHTML(file_get_contents($url));
 
             $xpath = new \DOMXpath($doc);
-            foreach($xpath_array as $elem){
-              $elements = $xpath->query($elem["xpath_value"]);
 
+
+            foreach($xpath_array as $elem){
+              logger(json_encode($elem));
+              $elements = $xpath->query($elem["xpath_value"]);
               //print $doc->saveHTML();
               if (!is_null($elements)) {
                 foreach ($elements as $element) {
                   $nodes = $element->childNodes;
                   foreach ($nodes as $node) {
-
                     $result[$elem["xpath_name"]][] = $node->nodeValue;
 
                   }
                 }
               }
             }
+          $link_parts = explode(".",$url);
+          $link_parts =  explode("//",$link_parts[0]);
+          $result["link"] = $link_parts[1];
 
+          logger($result);
+
+          event(new NewBookAcceptToParseNotification($result));
           UrlParseController::saveResult(json_encode($result), $this->link_id);
     }
 }
