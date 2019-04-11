@@ -1,0 +1,6 @@
+//#xparse labirint
+{
+  "title":"//*[@id='product-title']//h1",
+  "price":"//*[@class='buying-price-val-number']",
+  "isbn":"//*[@class='isbn']"
+}

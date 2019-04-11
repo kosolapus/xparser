@@ -46,14 +46,12 @@ class CreateResultFile implements ShouldQueue
         foreach($url_object as $elem){
           $result_array[] = json_decode($elem->json_result);
         }
-        $json_obj = collect($result_array);
-        $json = $json_obj->toJson(JSON_PRETTY_PRINT);
-        Storage::disk('local')->put("/result/".$this->task_id.".json", $json);
+        Storage::disk('local')->put("/result/".$this->task_id.".json", json_encode($result_array));
 
         $task = TaskParse::find($this->task_id);
 
-        
 
-        EmailResult::dispatch($task);
+
+        //EmailResult::dispatch($task);
     }
 }

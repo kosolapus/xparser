@@ -1,6 +1,7 @@
 vendor/
 node_modules/
 npm-debug.log
+laravel-echo-server.json
 
 # Laravel 4 specific
 bootstrap/compiled.php

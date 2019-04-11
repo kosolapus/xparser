@@ -9,6 +9,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\TaskParseController;
 use App\Http\Controllers\XpathParseController;
 
+use App\Events\NewBookAcceptToParseNotification;
+
 use App\Jobs\ParseLinksFile;
 use App\Jobs\CreateResultFile;
 use App\Jobs\EmailResult;
@@ -18,7 +20,9 @@ class XParser extends Controller
 {
     //
     public function parse(Request $request){
-
+      //test
+       event(new NewBookAcceptToParseNotification("212"));
+       return "event fired";
     }
 
     public function showData(Request $request){
@@ -29,6 +33,9 @@ class XParser extends Controller
           'xpath' => 'requred'
       ]);
       */
+
+
+
       //Create new task
       $task = TaskParseController::add($request->email);
       //Save file with name like a "work_%task_id%"
@@ -43,7 +50,7 @@ class XParser extends Controller
 
       CreateResultFile::dispatch($task->id);
 
-    
+
 
 
       //Delete file with links AFTER parsing
