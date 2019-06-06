@@ -130,4 +130,17 @@ class IsbnToParseJsonController extends Controller
         }
         return collect($ret);
     }
+
+    public static function abris(String $isbnlist)
+    {
+        $ret = [
+        "title"=>"//div[contains(@class,'card__property')]/*[contains(@class,'name')]/text()",
+        "price"=>"//div[contains(@class,'price')]/*[contains(@class,'active')]/text()",
+        "isbn"=>"//input[contains(@id,'title-search-input')]/@value"
+      ];
+        foreach (explode("\n", $isbnlist) as $isbn) {
+            $ret["links"][] = "https://www.tdabris.ru/catalog/?q=".$isbn."&where=isbn";
+        }
+        return collect($ret);
+    }
 }
