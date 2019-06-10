@@ -143,4 +143,17 @@ class IsbnToParseJsonController extends Controller
         }
         return collect($ret);
     }
+
+    public static function ozon(String $isbnlist)
+    {
+        $ret = [
+        "title"=>"//a[contains(@class,'name')]/text()",
+        "price"=>"//*[contains(@class,'total-price')]/text()",
+        "isbn"=>"//*[contains(@class,'crosslink')]//b"
+      ];
+        foreach (explode("\n", $isbnlist) as $isbn) {
+            $ret["links"][] = "https://www.ozon.ru/search/?from_global=true&text=978-5-04-091891-1".$isbn."";
+        }
+        return collect($ret);
+    }
 }
