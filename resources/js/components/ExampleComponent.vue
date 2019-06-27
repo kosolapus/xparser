@@ -25,6 +25,10 @@
               <td>Myshop</td>
               <td>Labirint</td>
               <td>Book24</td>
+              <td>Просвещение</td>
+              <td>Абрис</td>
+              <td>Озон</td>
+              <td>Читай-город</td>
             </tr>
             <tr v-for="item in items">
               <td>{{ item.title ||"" }}</td>
@@ -32,6 +36,10 @@
               <td>{{ item.pricelist["my-shop"]||""  }}</td>
               <td>{{ item.pricelist.labirint||""  }}</td>
               <td>{{ item.pricelist.book24||""  }}</td>
+              <td>{{ item.pricelist.prosvet||""  }}</td>
+              <td>{{ item.pricelist.abris||""  }}</td>
+              <td>{{ item.pricelist.ozon||""  }}</td>
+              <td>{{ item.pricelist.chg||""  }}</td>
             </tr>
           </table>
         </div>

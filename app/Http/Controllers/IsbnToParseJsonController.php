@@ -75,6 +75,58 @@ class IsbnToParseJsonController extends Controller
         XpathParseController::add("price", $myshop["price"], $task->id);
         ParseLinksFile::dispatch("links/work_", $task->id);
         CreateResultFile::dispatch($task->id);
+
+        $task = TaskParseController::add("kosolapus@gmail.com");
+
+        $prosvet = IsbnToParseJsonController::prosvet($isbnlist);
+        //save files for work
+        Storage::disk('local')->put("/links/"."work_".$task->id, implode("\r\n", $prosvet["links"]));
+        //create new XPath
+
+        XpathParseController::add("isbn", $prosvet["isbn"], $task->id);
+        XpathParseController::add("title", $prosvet["title"], $task->id);
+        XpathParseController::add("price", $prosvet["price"], $task->id);
+        ParseLinksFile::dispatch("links/work_", $task->id);
+        CreateResultFile::dispatch($task->id);
+
+        $task = TaskParseController::add("kosolapus@gmail.com");
+
+        $abris = IsbnToParseJsonController::abris($isbnlist);
+        //save files for work
+        Storage::disk('local')->put("/links/"."work_".$task->id, implode("\r\n", $abris["links"]));
+        //create new XPath
+
+        XpathParseController::add("isbn", $abris["isbn"], $task->id);
+        XpathParseController::add("title", $abris["title"], $task->id);
+        XpathParseController::add("price", $abris["price"], $task->id);
+        ParseLinksFile::dispatch("links/work_", $task->id);
+        CreateResultFile::dispatch($task->id);
+
+        $task = TaskParseController::add("kosolapus@gmail.com");
+
+        $ozon = IsbnToParseJsonController::ozon($isbnlist);
+        //save files for work
+        Storage::disk('local')->put("/links/"."work_".$task->id, implode("\r\n", $ozon["links"]));
+        //create new XPath
+
+        XpathParseController::add("isbn", $ozon["isbn"], $task->id);
+        XpathParseController::add("title", $ozon["title"], $task->id);
+        XpathParseController::add("price", $ozon["price"], $task->id);
+        ParseLinksFile::dispatch("links/work_", $task->id);
+        CreateResultFile::dispatch($task->id);
+
+        $task = TaskParseController::add("kosolapus@gmail.com");
+
+        $chg = IsbnToParseJsonController::chg($isbnlist);
+        //save files for work
+        Storage::disk('local')->put("/links/"."work_".$task->id, implode("\r\n", $chg["links"]));
+        //create new XPath
+
+        XpathParseController::add("isbn", $chg["isbn"], $task->id);
+        XpathParseController::add("title", $chg["title"], $task->id);
+        XpathParseController::add("price", $chg["price"], $task->id);
+        ParseLinksFile::dispatch("links/work_", $task->id);
+        CreateResultFile::dispatch($task->id);
     }
     public static function book24(String $isbnlist = "")
     {
@@ -152,7 +204,20 @@ class IsbnToParseJsonController extends Controller
         "isbn"=>"//*[contains(@class,'crosslink')]//b"
       ];
         foreach (explode("\n", $isbnlist) as $isbn) {
-            $ret["links"][] = "https://www.ozon.ru/search/?from_global=true&text=978-5-04-091891-1".$isbn."";
+            $ret["links"][] = "https://www.ozon.ru/search/?from_global=true&text=".$isbn."";
+        }
+        return collect($ret);
+    }
+
+    public static function chg(String $isbnlist)
+    {
+        $ret = [
+        "title"=>"//*[contains(@class,'container_cards-product')]//div[contains(@class,'product-card__title')]/text()",
+        "price"=>"//*[contains(@class,'container_cards-product')]//span[contains(@class,'price')]/text()",
+        "isbn"=>"//*[contains(@class,'search-form__input')]/@value"
+      ];
+        foreach (explode("\n", $isbnlist) as $isbn) {
+            $ret["links"][] = "https://www.chitai-gorod.ru/search/result/?q=".$isbn."&page=1";
         }
         return collect($ret);
     }
