@@ -37,9 +37,9 @@
               <td>{{ item.pricelist.labirint||""  }}</td>
               <td>{{ item.pricelist.book24||""  }}</td>
               <td>{{ item.pricelist.prosvet||""  }}</td>
-              <td>{{ item.pricelist.abris||""  }}</td>
+              <td>{{ item.pricelist.tdabris||""  }}</td>
               <td>{{ item.pricelist.ozon||""  }}</td>
-              <td>{{ item.pricelist.chg||""  }}</td>
+              <td>{{ item.pricelist["chitai-gorod"]||""  }}</td>
             </tr>
           </table>
         </div>

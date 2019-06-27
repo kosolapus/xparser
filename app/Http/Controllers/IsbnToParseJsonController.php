@@ -191,7 +191,7 @@ class IsbnToParseJsonController extends Controller
         "isbn"=>"//input[contains(@id,'title-search-input')]/@value"
       ];
         foreach (explode("\n", $isbnlist) as $isbn) {
-            $ret["links"][] = "https://www.tdabris.ru/catalog/?q=".$isbn."&where=isbn";
+            $ret["links"][] = "https://tdabris.ru/catalog/?q=".$isbn."&where=isbn";
         }
         return collect($ret);
     }
@@ -204,7 +204,7 @@ class IsbnToParseJsonController extends Controller
         "isbn"=>"//*[contains(@class,'crosslink')]//b"
       ];
         foreach (explode("\n", $isbnlist) as $isbn) {
-            $ret["links"][] = "https://www.ozon.ru/search/?from_global=true&text=".$isbn."";
+            $ret["links"][] = "https://ozon.ru/search/?from_global=true&text=".$isbn."";
         }
         return collect($ret);
     }
@@ -217,7 +217,7 @@ class IsbnToParseJsonController extends Controller
         "isbn"=>"//*[contains(@class,'search-form__input')]/@value"
       ];
         foreach (explode("\n", $isbnlist) as $isbn) {
-            $ret["links"][] = "https://www.chitai-gorod.ru/search/result/?q=".$isbn."&page=1";
+            $ret["links"][] = "https://chitai-gorod.ru/search/result/?q=".$isbn."&page=1";
         }
         return collect($ret);
     }
