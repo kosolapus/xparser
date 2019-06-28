@@ -173,9 +173,9 @@ class IsbnToParseJsonController extends Controller
     public static function prosvet(String $isbnlist)
     {
         $ret = [
-        "title"=>"//h2[@class='product-title']/a/text()",
-        "price"=>"//span[contains(@class,'price') and contains(@class,'actual-price')]/text()",
-        "isbn"=>"/*[contains(@class,'search-text')]/@value"
+        "title"=>"//*[@class='product-title']/a/text()",
+        "price"=>"//*[contains(@class,'price') and contains(@class,'actual-price')]/text()",
+        "isbn"=>"//*[contains(@class,'search-text')]/@value"
       ];
         foreach (explode("\n", $isbnlist) as $isbn) {
             $ret["links"][] = "https://shop.prosv.ru/search?q=".$isbn;
