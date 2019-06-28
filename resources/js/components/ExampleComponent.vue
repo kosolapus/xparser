@@ -81,7 +81,7 @@
               Vue.set(items[isbn],"title", e.title[0]);
             }
             Vue.set(items[isbn].pricelist,e.link,e.price[0].replace(/[^0-9]/g, ''));
-            console.log(items[isbn]);
+            console.log(items);
           }).bind(items);
         },
         methods:{
