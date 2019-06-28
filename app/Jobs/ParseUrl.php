@@ -46,36 +46,31 @@ class ParseUrl implements ShouldQueue
         $xpath_array = $xpath->toArray();
 
 
-          $url =  trim(preg_replace('/\s\s+/', ' ', $link->url));
-          $result = [];
+        $url =  trim(preg_replace('/\s\s+/', ' ', $link->url));
+        $result = [];
 
-            $doc = new \DOMDocument();
-            $doc->loadHTML(file_get_contents($url));
-
-            $xpath = new \DOMXpath($doc);
-
-
-            foreach($xpath_array as $elem){
-              logger(json_encode($elem));
-              $elements = $xpath->query($elem["xpath_value"]);
-              //print $doc->saveHTML();
-              if (!is_null($elements)) {
+        $doc = new \DOMDocument();
+        $doc->loadHTML(file_get_contents($url));
+        $xpath = new \DOMXpath($doc);
+        foreach ($xpath_array as $elem) {
+            $elements = $xpath->query($elem["xpath_value"]);
+            //print $doc->saveHTML();
+            if (!is_null($elements)) {
                 foreach ($elements as $element) {
-                  $nodes = $element->childNodes;
-                  foreach ($nodes as $node) {
-                    $result[$elem["xpath_name"]][] = $node->nodeValue;
-
-                  }
+                    $nodes = $element->childNodes;
+                    foreach ($nodes as $node) {
+                        $result[$elem["xpath_name"]][] = $node->nodeValue;
+                    }
                 }
-              }
             }
-          $link_parts = explode(".",$url);
-          $link_parts =  explode("//",$link_parts[0]);
-          $result["link"] = $link_parts[1];
+        }
+        $link_parts = explode(".", $url);
+        $link_parts =  explode("//", $link_parts[0]);
+        $result["link"] = $link_parts[1];
 
-          logger($result);
+        logger($result);
 
-          event(new NewBookAcceptToParseNotification($result));
-          UrlParseController::saveResult(json_encode($result), $this->link_id);
+        event(new NewBookAcceptToParseNotification($result));
+        UrlParseController::saveResult(json_encode($result), $this->link_id);
     }
 }

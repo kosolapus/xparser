@@ -65,6 +65,7 @@
           var items = this.items;
           window.Echo.channel('andrey.1')
           .listen('.parser.book.accepted', function(e){
+            console.log(e);
             if(!e.isbn || !e.price){
               return
             }
@@ -81,7 +82,7 @@
               Vue.set(items[isbn],"title", e.title[0]);
             }
             Vue.set(items[isbn].pricelist,e.link,e.price[0].replace(/[^0-9]/g, ''));
-            console.log(items);
+
           }).bind(items);
         },
         methods:{
