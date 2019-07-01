@@ -9,6 +9,8 @@ use Storage;
 use App\Http\Controllers\TaskParseController;
 use App\Http\Controllers\XpathParseController;
 
+use App\Http\Controllers\ParserShopFactory;
+
 use App\Jobs\ParseLinksFile;
 use App\Jobs\CreateResultFile;
 use App\Jobs\EmailResult;
@@ -20,11 +22,13 @@ class IsbnToParseJsonController extends Controller
 
       //prepare url list for each store
         //create task
+
         $task = TaskParseController::add("kosolapus@gmail.com");
 
         $isbnlist = $request->input("isbn");
 
         $book24 = IsbnToParseJsonController::book24($isbnlist);
+
         //save files for work
         Storage::disk('local')->put("/links/"."work_".$task->id, implode("\r\n", $book24["links"]));
         //create new XPath

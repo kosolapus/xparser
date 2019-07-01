@@ -15,14 +15,30 @@ use App\Jobs\ParseLinksFile;
 use App\Jobs\CreateResultFile;
 use App\Jobs\EmailResult;
 
+use App\Http\Controllers\ParserShopFactory;
+
 
 class XParser extends Controller
 {
     //
     public function parse(Request $request){
       //test
-       event(new NewBookAcceptToParseNotification("212"));
-       return "event fired";
+       //event(new NewBookAcceptToParseNotification("212"));
+
+       $list = $request->shops;
+       $isbnlist = $request->isbn;
+
+       $total = [];
+       dd([$list,$isbnlist]);
+       foreach($list as $shop){
+         $parser = ParserShopFactory::build($shop);
+         foreach($isbnlist as $isbn) {
+           $parser->setList($isbn);
+         }
+         $total[]=$parser;
+       }
+
+       dd($total);
     }
 
     public function showData(Request $request){
