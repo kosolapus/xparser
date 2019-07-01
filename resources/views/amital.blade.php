@@ -11,9 +11,6 @@
     <div class="row">
       <div class="col-12" >
         <h1 class="text-center">XParser v.2.0 - Shop Parser</h1>
-        <p class="text-center">
-          Спецом для Андрея. Вводишь список ISBN, жмешь "Получить анализ цен", ждешь
-        </p>
       </div>
     </div>
   </div>

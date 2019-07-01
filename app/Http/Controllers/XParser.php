@@ -23,13 +23,13 @@ class XParser extends Controller
     //
     public function parse(Request $request){
       //test
-       //event(new NewBookAcceptToParseNotification("212"));
+       event(new NewBookAcceptToParseNotification("212"));
 
        $list = $request->shops;
        $isbnlist = $request->isbn;
 
        $total = [];
-       dd([$list,$isbnlist]);
+       return [$list,$isbnlist];
        foreach($list as $shop){
          $parser = ParserShopFactory::build($shop);
          foreach($isbnlist as $isbn) {
@@ -38,7 +38,6 @@ class XParser extends Controller
          $total[]=$parser;
        }
 
-       dd($total);
     }
 
     public function showData(Request $request){

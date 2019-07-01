@@ -24,6 +24,8 @@ class DefaultController extends Controller implements IParserShop
     public function setList($list = null){
       $this->list[] = $list;
     }
-    public function parseISBN(){}
+    public function parseISBN(){
+      
+    }
     public function generateJSON(){}
 }

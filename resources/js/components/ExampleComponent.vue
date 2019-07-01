@@ -59,7 +59,18 @@
         <div class="col-12 text-center">
           <button class="my-4 btn btn-success btn-xl" v-on:click.prevent="startParse()" >Парсь меня полностью!</button>
         </div>
-        {{ info }}
+        <div class="col-12 text-center">
+          <table class="table table-bordered">
+            <tr>
+              <td>ISBN</td>
+              <td v-for="shop in shops">{{shop}}</td>
+            </tr>
+            <tr v-for="item in isbnlist">
+              <td>{{item}}</td>
+              <td v-for="shop in shops" :data-item="item" :data-shop="shop"></td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
   </section>

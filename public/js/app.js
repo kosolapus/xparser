@@ -1909,6 +1909,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -47847,7 +47858,43 @@ var render = function() {
             [_vm._v("Парсь меня полностью!")]
           )
         ]),
-        _vm._v("\n      " + _vm._s(_vm.info) + "\n    ")
+        _vm._v(" "),
+        _c("div", { staticClass: "col-12 text-center" }, [
+          _c(
+            "table",
+            { staticClass: "table table-bordered" },
+            [
+              _c(
+                "tr",
+                [
+                  _c("td", [_vm._v("ISBN")]),
+                  _vm._v(" "),
+                  _vm._l(_vm.shops, function(shop) {
+                    return _c("td", [_vm._v(_vm._s(shop))])
+                  })
+                ],
+                2
+              ),
+              _vm._v(" "),
+              _vm._l(_vm.isbnlist, function(item) {
+                return _c(
+                  "tr",
+                  [
+                    _c("td", [_vm._v(_vm._s(item))]),
+                    _vm._v(" "),
+                    _vm._l(_vm.shops, function(shop) {
+                      return _c("td", {
+                        attrs: { "data-item": item, "data-shop": shop }
+                      })
+                    })
+                  ],
+                  2
+                )
+              })
+            ],
+            2
+          )
+        ])
       ])
     ])
   ])
