@@ -39,7 +39,6 @@ class DefaultController extends Controller implements IParserShop
         if (!is_null($elements)) {
             foreach ($elements as $element) {
                 $nodes = $element->childNodes;
-                
                 foreach ($nodes as $node) {
                     $this->json[] = $node->nodeValue;
                 }

@@ -15,13 +15,13 @@ use App\Http\Controllers\IsbnToParseJsonController;
 
 
 Route::get('/', function () {
-    return view('index');
-});
+    return view('amital');
+})->name("home");
 
 
 
 Route::get('/amital', function () {
-    return view('amital');
+    return redirect()->route('home');
 });
 
 //test
