@@ -1813,7 +1813,7 @@ __webpack_require__(/*! ../api */ "./resources/js/api.js");
   data: function data() {
     return {
       counter: 0,
-      isbn: "978-5-699-96183-2\n      978-5-91921-593-6\n      978-5-91921-308-6\n      978-5-91921-277-5\n      978-5-91921-456-4",
+      isbn: "978-5-8112-6473-5",
       shops: [],
       shopsList: [{
         name: "Amital",
@@ -50184,8 +50184,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! c:\serv\OSPanel\domains\xparser\public_html\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! c:\serv\OSPanel\domains\xparser\public_html\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! c:\serv\OSPanel\domains\xparser\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! c:\serv\OSPanel\domains\xparser\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

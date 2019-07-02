@@ -48,11 +48,7 @@
       data:function(){
         return {
           counter:0,
-          isbn:`978-5-699-96183-2
-          978-5-91921-593-6
-          978-5-91921-308-6
-          978-5-91921-277-5
-          978-5-91921-456-4`,
+          isbn:`978-5-8112-6473-5`,
           shops:[],
           shopsList:[
             {name:"Amital",value:"amital"},

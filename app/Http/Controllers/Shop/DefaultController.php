@@ -10,10 +10,10 @@ use App\Contracts\IParserShop;
 class DefaultController extends Controller implements IParserShop
 {
     //test on labirint
-    private $isbn;
-    private $json;
-    private $price;
-    private $xpath = "//*[contains(@class,'buying-price-val-number') or contains(@class,'buying-pricenew-val-number')]";
+    protected $isbn;
+    protected $json;
+    protected $price;
+    protected $xpath = "//*[contains(@class,'buying-price-val-number') or contains(@class,'buying-pricenew-val-number')]";
 
     public function setList($isbn = null)
     {
@@ -45,6 +45,6 @@ class DefaultController extends Controller implements IParserShop
     }
     public function generateJSON()
     {
-        return $this->json[0];
+        return intval($this->json[0]);
     }
 }
