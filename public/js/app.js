@@ -1820,7 +1820,7 @@ __webpack_require__(/*! ../api */ "./resources/js/api.js");
         value: "amital"
       }, {
         name: "Читай-город",
-        value: "chitayGorod"
+        value: "chitaiGorod"
       }, {
         name: "Абрис",
         value: "abris"

@@ -52,7 +52,7 @@
           shops:[],
           shopsList:[
             {name:"Amital",value:"amital"},
-            {name:"Читай-город",value:"chitayGorod"},
+            {name:"Читай-город",value:"chitaiGorod"},
             {name:"Абрис",value:"abris"},
             {name:"Озон",value:"ozon"},
             {name:"Лабиринт",value:"labirint"},

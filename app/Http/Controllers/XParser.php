@@ -16,8 +16,6 @@ class XParser extends Controller
         $parser = ParserShopFactory::build($shop);
         $parser->setList($isbn);
         $parser->parseISBN();
-
-
         return json_encode(["isbn"=>$isbn,"shop"=>$shop,"json"=>$parser->generateJSON()]);
     }
 }
