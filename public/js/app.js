@@ -1854,6 +1854,13 @@ __webpack_require__(/*! ../api */ "./resources/js/api.js");
   },
   methods: {
     startParse: function startParse() {
+      //clear sky
+      [].forEach.call(document.querySelectorAll('td[data-shop][data-isbn]'), function (td) {
+        td.classList.remove("bg-success");
+        td.classList.remove("bg-danger");
+        td.classList.remove("bg-warning");
+        td.innerHTML = "";
+      });
       var url = "/testnoty";
       this.counter = this.isbnlist.length * this.shops.length;
 
