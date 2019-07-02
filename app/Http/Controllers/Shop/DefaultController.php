@@ -47,6 +47,7 @@ class DefaultController extends Controller implements IParserShop
     }
     public function generateJSON()
     {
-        return intval($this->json[0]);
+        return intval(preg_replace("/[^0-9\.\,]/", "",$this->json[0]));
+
     }
 }
