@@ -1806,13 +1806,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 __webpack_require__(/*! ../api */ "./resources/js/api.js");
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      info: null,
-      isbn: "978-5-699-96183-2",
+      counter: 0,
+      isbn: "978-5-699-96183-2\n      978-5-91921-593-6\n      978-5-91921-308-6\n      978-5-91921-277-5\n      978-5-91921-456-4",
       shops: [],
       shopsList: [{
         name: "Amital",
@@ -1854,11 +1855,13 @@ __webpack_require__(/*! ../api */ "./resources/js/api.js");
   methods: {
     startParse: function startParse() {
       var url = "/testnoty";
+      this.counter = this.isbnlist.length * this.shops.length;
 
       for (var isbn_id in this.isbnlist) {
         for (var shop_id in this.shops) {
           var shop = this.shops[shop_id];
           var isbn = this.isbnlist[isbn_id];
+          var self = this;
           document.querySelector('[data-shop="' + shop + '"][data-isbn="' + isbn + '"]').classList.add("bg-warning");
           axios.post(url, {
             shop: shop,
@@ -1874,7 +1877,9 @@ __webpack_require__(/*! ../api */ "./resources/js/api.js");
             } else {
               document.querySelector('[data-shop="' + response.data.shop + '"][data-isbn="' + response.data.isbn + '"]').classList.add("bg-danger");
             }
-          })["catch"](function () {});
+
+            self.counter--;
+          }.bind(self))["catch"](function () {});
         }
       }
     }
@@ -37707,7 +37712,9 @@ var render = function() {
               }
             },
             [_vm._v("Парсь меня полностью!")]
-          )
+          ),
+          _vm._v(" "),
+          _c("p", [_vm._v("Задачи парсинга: " + _vm._s(this.counter))])
         ]),
         _vm._v(" "),
         _c("div", { staticClass: "col-12 text-center" }, [

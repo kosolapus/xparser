@@ -22,6 +22,7 @@
         </div>
         <div class="col-12 text-center">
           <button class="my-4 btn btn-success btn-xl" v-on:click.prevent="startParse()" >Парсь меня полностью!</button>
+          <p>Задачи парсинга: {{this.counter}}</p>
         </div>
         <div class="col-12 text-center">
           <table class="table table-bordered">
@@ -46,8 +47,12 @@
     export default {
       data:function(){
         return {
-          info:null,
-          isbn:`978-5-699-96183-2`,
+          counter:0,
+          isbn:`978-5-699-96183-2
+          978-5-91921-593-6
+          978-5-91921-308-6
+          978-5-91921-277-5
+          978-5-91921-456-4`,
           shops:[],
           shopsList:[
             {name:"Amital",value:"amital"},
@@ -75,11 +80,12 @@
         startParse:function(){
 
           var url = "/testnoty";
-
+          this.counter = this.isbnlist.length*this.shops.length;
           for(var isbn_id in this.isbnlist){
             for(var shop_id in this.shops){
               var shop = this.shops[shop_id];
               var isbn = this.isbnlist[isbn_id];
+              var self = this;
 
               document.querySelector('[data-shop="'+shop+'"][data-isbn="'+isbn+'"]').classList.add("bg-warning")
               axios
@@ -95,8 +101,9 @@
                   } else {
                     document.querySelector('[data-shop="'+response.data.shop+'"][data-isbn="'+response.data.isbn+'"]').classList.add("bg-danger")
                   }
+                  self.counter--;
 
-                })
+                }.bind(self))
                 .catch(function(){});
             }
           }
