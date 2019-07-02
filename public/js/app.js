@@ -1871,6 +1871,8 @@ __webpack_require__(/*! ../api */ "./resources/js/api.js");
             if (parseInt(response.data.json) > 0) {
               document.querySelector('[data-shop="' + response.data.shop + '"][data-isbn="' + response.data.isbn + '"]').classList.add("bg-success");
               document.querySelector('[data-shop="' + response.data.shop + '"][data-isbn="' + response.data.isbn + '"]').innerText = response.data.json;
+            } else {
+              document.querySelector('[data-shop="' + response.data.shop + '"][data-isbn="' + response.data.isbn + '"]').classList.add("bg-danger");
             }
           })["catch"](function () {});
         }
