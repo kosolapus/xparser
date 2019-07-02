@@ -10,18 +10,18 @@
             <label v-for="shop in shopsList" :for="shop.value">
               <li class="list-group-item" :class=" { 'active': ( shops.indexOf( shop.value ) != -1 ) }">
                 {{shop.name}}
-                <input class="d-none" type="checkbox" :id="shop.value" :name="shop.value" :value="shop.value" v-model="shops">
+                <input class="d-none" type="checkbox" :disabled="!canParse"  :id="shop.value" :name="shop.value" :value="shop.value" v-model="shops">
               </li>
             </label>
           </ul>
         </div>
         <div class="col-12 col-md-6">
           <div class="form-group h-100">
-            <textarea class="form-control h-100" v-model="isbn"></textarea>
+            <textarea class="form-control h-100" :disabled="!canParse" v-model="isbn"></textarea>
           </div>
         </div>
         <div class="col-12 text-center">
-          <button class="my-4 btn btn-success btn-xl" v-on:click.prevent="startParse()" >Парсь меня полностью!</button>
+          <button class="my-4 btn btn-success btn-xl" :disabled="!canParse" v-on:click.prevent="startParse()" >Парсь меня полностью!</button>
           <p>Задачи парсинга: {{this.counter}}</p>
         </div>
         <div class="col-12 text-center">
@@ -65,6 +65,9 @@
       computed:{
         isbnlist:function(){
           return this.isbn.replace(/ /g,"").split("\n");
+        },
+        canParse:function(){
+          return this.counter==0;
         }
       },
       provide:function(){

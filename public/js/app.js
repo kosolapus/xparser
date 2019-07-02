@@ -1845,6 +1845,9 @@ __webpack_require__(/*! ../api */ "./resources/js/api.js");
   computed: {
     isbnlist: function isbnlist() {
       return this.isbn.replace(/ /g, "").split("\n");
+    },
+    canParse: function canParse() {
+      return this.counter == 0;
     }
   },
   provide: function provide() {
@@ -37642,6 +37645,7 @@ var render = function() {
                       staticClass: "d-none",
                       attrs: {
                         type: "checkbox",
+                        disabled: !_vm.canParse,
                         id: shop.value,
                         name: shop.value
                       },
@@ -37693,6 +37697,7 @@ var render = function() {
                 }
               ],
               staticClass: "form-control h-100",
+              attrs: { disabled: !_vm.canParse },
               domProps: { value: _vm.isbn },
               on: {
                 input: function($event) {
@@ -37711,6 +37716,7 @@ var render = function() {
             "button",
             {
               staticClass: "my-4 btn btn-success btn-xl",
+              attrs: { disabled: !_vm.canParse },
               on: {
                 click: function($event) {
                   $event.preventDefault()
