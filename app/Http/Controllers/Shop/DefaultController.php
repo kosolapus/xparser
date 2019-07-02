@@ -5,27 +5,46 @@ namespace App\Http\Controllers\Shop;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use App\Http\Controllers\TaskParseController;
-use App\Http\Controllers\XpathParseController;
-
 use App\Contracts\IParserShop;
-
-use App\Jobs\ParseLinksFile;
-use App\Jobs\CreateResultFile;
-use App\Jobs\EmailResult;
-
 
 class DefaultController extends Controller implements IParserShop
 {
-    //
-    private $list;
+    //test on labirint
+    private $isbn;
     private $json;
+    private $price;
+    private $xpath = "//*[contains(@class,'buying-price-val-number') or contains(@class,'buying-pricenew-val-number')]";
 
-    public function setList($list = null){
-      $this->list[] = $list;
+    public function setList($isbn = null)
+    {
+        $this->isbn = $isbn;
     }
-    public function parseISBN(){
-      
+    public function parseISBN()
+    {
+        //html is not valid xml. we know it. we doesn't need to repeat it. don't worry, dear php
+        error_reporting(1);
+
+        $link = "https://labirint.ru/search/".$this->isbn."/?labsearch=1&stype=0";
+
+        $doc = new \DOMDocument();
+
+        $doc->loadHTML(file_get_contents($link));
+        $xpath_doc = new \DOMXpath($doc);
+        $elements = $xpath_doc->query($this->xpath);
+
+        //print $doc->saveHTML();
+        if (!is_null($elements)) {
+            foreach ($elements as $element) {
+                $nodes = $element->childNodes;
+
+                foreach ($nodes as $node) {
+                    $this->json[] = $node->nodeValue;
+                }
+            }
+        }
     }
-    public function generateJSON(){}
+    public function generateJSON()
+    {
+        return $this->json[0];
+    }
 }

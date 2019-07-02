@@ -2,87 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Storage;
-
 use Illuminate\Http\Request;
-
-use App\Http\Controllers\TaskParseController;
-use App\Http\Controllers\XpathParseController;
-
-use App\Events\NewBookAcceptToParseNotification;
-
-use App\Jobs\ParseLinksFile;
-use App\Jobs\CreateResultFile;
-use App\Jobs\EmailResult;
-
 use App\Http\Controllers\ParserShopFactory;
-
 
 class XParser extends Controller
 {
     //
-    public function parse(Request $request){
-      //test
-       event(new NewBookAcceptToParseNotification("212"));
+    public function parse(Request $request)
+    {
+        $shop = $request->shop;
+        $isbn = $request->isbn;
 
-       $list = $request->shops;
-       $isbnlist = $request->isbn;
-
-       $total = [];
-       return [$list,$isbnlist];
-       foreach($list as $shop){
-         $parser = ParserShopFactory::build($shop);
-         foreach($isbnlist as $isbn) {
-           $parser->setList($isbn);
-         }
-         $total[]=$parser;
-       }
-
-    }
-
-    public function showData(Request $request){
-
-      /*
-      $validatedData = $request->validate([
-          'email' => 'required|email',
-          'xpath' => 'requred'
-      ]);
-      */
+        $parser = ParserShopFactory::build($shop);
+        $parser->setList($isbn);
+        $parser->parseISBN();
 
 
-
-      //Create new task
-      $task = TaskParseController::add($request->email);
-      //Save file with name like a "work_%task_id%"
-      $request->links->storeAs('links',"work_".$task->id);
-      //Parse XPath
-      foreach($request->xpath as $xpath_item){
-        //create new XPath
-        $xpath = XpathParseController::add($xpath_item["name"],$xpath_item["value"],$task->id);
-      }
-      //Add job to file parse
-      ParseLinksFile::dispatch("links/work_",$task->id);
-
-      CreateResultFile::dispatch($task->id);
-
-
-
-
-      //Delete file with links AFTER parsing
-      //DeleteLinksFile::dispatch("links/work_".$task->id);
-      //dd($request->all());
-    }
-
-    public function download(Request $request){
-      if (! $request->hasValidSignature()) {
-          abort(401);
-      }
-      $task_id = $request->task_id;
-      if(Storage::exists("/result/".$task_id.".json")){
-        return Storage::download("/result/".$task_id.".json");
-      }
-
-      return abort(404);
-
+        return json_encode(["isbn"=>$isbn,"shop"=>$shop,"json"=>$parser->generateJSON()]);
     }
 }
