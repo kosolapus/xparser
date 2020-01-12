@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Shop;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use App\Contracts\IParserShop;
@@ -47,7 +46,7 @@ class DefaultController extends Controller implements IParserShop
     }
     public function generateJSON()
     {
-        return intval(preg_replace("/[^0-9\.\,]/", "",$this->json[0]));
+        return intval(preg_replace("/[^0-9.,]/", "",$this->json[0]));
 
     }
 }
