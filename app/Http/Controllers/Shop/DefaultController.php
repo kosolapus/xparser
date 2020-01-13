@@ -4,9 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Controller;
 
-use App\Contracts\IParserShop;
-
-class DefaultController extends Controller implements IParserShop
+class DefaultController extends Controller
 {
     //test on labirint
     protected $isbn;
