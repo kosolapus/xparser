@@ -28,7 +28,14 @@ class DefaultController extends Controller
 
         $doc = new \DOMDocument();
 
-        $doc->loadHTML(file_get_contents($link));
+        $loadSettings =  array(
+            'https' => array(
+                'proxy' => 'https://192.168.0.1:3128',
+                'request_fulluri' => true,
+            ),
+        );;
+
+        $doc->loadHTML(file_get_contents($link, false, $loadSettings));
         $xpath_doc = new \DOMXpath($doc);
         $elements = $xpath_doc->query($this->xpath);
 
